@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Page Title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+table, td {
+  border: 1px solid black;
+}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+/* Style the header */
+.header {
+  padding: 80px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+}
+
+/* Increase the font size of the h1 element */
+.header h1 {
+  font-size: 40px;
+}
+
+/* Style the top navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar p {
+  display: block;
+  color: white;
+}
+
+/* Style the navigation bar links */
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+/* Right-aligned link */
+.navbar a.right {
+  float: right;
+}
+
+/* Change color on hover */
+
+/* Column container */
+.row {  
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  flex: 30%;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+/* Main column */
+.main {   
+  flex: 70%;
+  background-color: white;
+  padding: 20px;
+}
+
+/* Fake image, just for this example */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Footer */
+.footer {
+  background: #ddd;
+}
+
+.footer h5{
+  text-align: right;
+  display: block;
+}
+
+.footer b{
+	text-align: left;
+	float: left;
+}
+
+.footer b.right{
+	float:right;
+}
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+  .row {   
+    flex-direction: column;
+  }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width:100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>UCSD Anthropology Class Grade Checker</h1>
+  <p>A website to check the average grade in a given class.</p>
+</div>
+
+<div class="navbar">
+<form action=""> 
+	<a>Choose a Class:</a>
+	<a><input type="text" name="CN" id="CN" value=""></a>
+	<a><button type="button" id="button" onclick="showProfessor(CN.value,{{list}})">Submit</button>
+</select>
+</form>
+</div>
+
+<div class="row">
+  <div class="side">
+    <h5>How to use this program:</h5>
+
+    <p>Step 1: Enter course number</p>
+    <p>Step 2: Click submit</p>
+    <p>Step 3: Profit!</p>
+
+  </div>
+  
+  <div class="main">
+	<h2 id="Class Name">Choose your class</h2>
+	<table id="myTable">
+    <tr>
+      <td>Professor</td>
+      <td>Year</td>
+      <td>Average Grade Expected</td>
+      <td>Class Data Percentage</td>
+    </tr>
+</table>
+  </div>
+</div>
+
+<div class="footer">
+  <br>
+  <b>Created by Ferdinand Abad, Henry Dang, Jeffery Zhang, Vinson Chen</b>
+  <h5>Disclaimer: Some statistical data may not be complete data sets</h5>
+  <br>
+</div>
+<script>
+document.getElementById('CN').addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            document.getElementById('button').click();
+        }
+    });
+
+
+function showProfessor(str, theList){
+	//check .dom file 
+	var table = document.getElementById("myTable");
+	table.innerHTML = "";
+	var tableRow = "";
+	var i;
+
+  for(i=0; i < theList.length; i++){
+    if(theList[i]['CN'] == str){
+      document.getElementById("Class Name").innerHTML = theList[i]['CourseName'];
+      var row = table.insertRow(0);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      cell1.innerHTML = theList[i]['Professor'];
+      cell2.innerHTML = theList[i]['Year'];
+      cell3.innerHTML = theList[i]['AGE'];
+      cell4.innerHTML = theList[i]['PE'];
+    }
+  }
+	var r1 = table.insertRow(0);
+	var c1 = r1.insertCell(0);
+	var c2 = r1.insertCell(1);
+	var c3 = r1.insertCell(2);
+	var c4 = r1.insertCell(3);
+	c1.innerHTML = "Professor";
+	c2.innerHTML = "Year";
+	c3.innerHTML = "Average Grade Expected";
+	c4.innerHTML = "Class Data Percentage";
+}
+
+function readTextFile(filepath) {
+	var str = "";
+	var txtFile = new File(filepath);
+	txtFile.open("r");
+	while (!txtFile.eof) {
+		// read each line of text
+		str += txtFile.readln() + "\n";
+	}
+	return str;
+}
+
+
+function myFunction() {
+  var table = document.getElementById("myTable");
+  var row = table.insertRow(0);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  cell1.innerHTML = "NEW CELL1";
+  cell2.innerHTML = "NEW CELL2";
+}
+
+</script>
+</body>
+</html>
+
+
+
